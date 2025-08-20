@@ -117,7 +117,7 @@ export default function TamilDictionaryApp() {
   <img 
   src="https://iagarathi.netlify.app/-20-08-2025.png" 
   alt="தமிழ் அகராதி" 
-  className="h-16 md:h-16"
+  className="h-20 md:h-25"
 />
           </div>  
           <p className="text-muted-foreground text-lg">
