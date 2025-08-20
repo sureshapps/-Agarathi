@@ -148,7 +148,7 @@ export default function TamilDictionaryApp() {
               <div key={i} className="mb-4">
                 <p className="font-xl text-indigo-700">
                   {meaning.partOfSpeech}
-                </p> </br>
+                </p> 
                 <ul className="list-disc pl-6 space-y-1">
                   {meaning.definitions.map((def, j) => (
                     <li key={j}>
