@@ -114,12 +114,13 @@ export default function TamilDictionaryApp() {
           <div className="flex items-center justify-center gap-3">
           
 
-  
+  <div class="relative">
 
     <div class="absolute inset-x-0 -bottom-1 h-5 bg-white border border-gray-500 rounded-xl"></div>
-   <div class="text-4xl md:text-5xl font-extrabold tracking-tight gradient-text drop-shadow-lg py-5 px-10 bg-white border border-gray-500 rounded-xl transform hover:translate-y-1 transition duration-150">தமிழ் அகராதி</div>
 
+    <div class="relative leading-none tracking-tight gradient-text text-4xl font-extrabold py-5 px-16 bg-white border border-gray-500 rounded-xl transform hover:translate-y-1 transition duration-150">spacebar</div>
 
+  </div>
           </div>  
           <p className="text-muted-foreground text-lg">
             சொற்களின் விளக்கங்களை அறிந்துக்கொள்ளுங்கள்.
