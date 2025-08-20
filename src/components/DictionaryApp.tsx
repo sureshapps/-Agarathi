@@ -119,11 +119,12 @@ export default function TamilDictionaryApp() {
   alt="தமிழ் அகராதி" 
   className="h-20 md:h-25"
 />
+            <p>
            <img 
   src="https://raw.githubusercontent.com/sureshapps/-Agarathi/refs/heads/main/public/description.png" 
   alt="description" 
   className="h-12 md:h-16"
-/>
+/></p>
         </div>   
         </div>
 
