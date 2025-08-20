@@ -108,17 +108,27 @@ export default function TamilDictionaryApp() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-white text-gray-900 p-4">
-      {/* App Title */}
-      <h1 className="text-3xl font-bold mb-6 text-gray-800 tracking-tight">
-        📖 தமிழ் அகராதி
-      </h1>
+    return (
+    <div className="min-h-screen p-4 md:p-8">
+      <div className="max-w-6xl mx-auto space-y-8">
+        {/* Header */}
+        <div className="text-center space-y-4 animate-fade-in">
+          <div className="flex items-center justify-center gap-3">
+            <BookOpen className="w-10 h-10 text-primary drop-shadow-md" />
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight gradient-text drop-shadow-lg">
+              தமிழ் அகராதி
+            </h1>
+          </div>
+          <p className="text-muted-foreground text-lg">
+          சொற்களின் விளக்கங்களை அறிந்துக்கொள்ளுங்கள்.
+          </p>
+        </div>
 
       {/* Search Bar */}
       <div className="flex w-full max-w-md items-center space-x-2 mb-6">
         <Input
           type="text"
-          placeholder="தமிழ் சொல் தேடுங்கள்..."
+          placeholder="தமிழ்ச் சொற்களைத் தேடுங்கள்..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="flex-1 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
