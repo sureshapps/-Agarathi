@@ -117,14 +117,13 @@ export default function TamilDictionaryApp() {
   <img 
   src="https://iagarathi.netlify.app/-20-08-2025.png" 
   alt="தமிழ் அகராதி" 
-  className="h-20 md:h-25"
+  className="h-20 md:h-25 animate-fade-in"
 />     </div>   
-         
-       <Card className="glass-card p-6 text-center animate-fade-in">    <img 
+         <center>  <img 
   src="https://raw.githubusercontent.com/sureshapps/-Agarathi/refs/heads/main/public/description.png" 
   alt="description" 
-  className="h-12 md:h-16"
-/></Card>
+  className="h-12 md:h-16 animate-fade-in"
+/></center>
    
         </div>
 
