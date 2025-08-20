@@ -56,12 +56,13 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
                 </div>
               </div>
 
-              <h1 className="text-6xl font-bold gradient-text mb-4">
-                eKAMUS
+              <h1 className="text-3xl font-bold gradient-text mb-4">
+                தமிழ் அகராதி
+
               </h1>
 
               <p className="text-primary-foreground/80 text-lg font-medium">
-                Discover Meaning, Instantly.
+தமிழ் சொற்களின் அர்த்தத்தை அறிந்து கொள்ளுங்கள்
               </p>
             </div>
           </div>
