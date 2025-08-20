@@ -1,23 +1,47 @@
+"use client";
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
-import { Search, Loader2, BookOpen } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { Card, CardContent } from "@/components/ui/card";
+import { Loader2, Search, Image as ImageIcon } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
 
-const TamilDictionaryApp = () => {
+// WordData interface (same structure as English version)
+interface WordData {
+  word: string;
+  phonetics: string[];
+  meanings: {
+    partOfSpeech: string;
+    definitions: { definition: string; example?: string }[];
+  }[];
+}
+
+export default function TamilDictionaryApp() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [definition, setDefinition] = useState<string | null>(null);
+  const [wordData, setWordData] = useState<WordData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
+  const [generatedImage, setGeneratedImage] = useState<string | null>(null);
 
+  // 🔥 Auto Image Generator (placeholder)
+  const generateWordImageAuto = (wordData: WordData) => {
+    // In real app, connect to your backend or OpenAI/DALL-E
+    const definition =
+      wordData.meanings[0]?.definitions[0]?.definition || "விளக்கம் இல்லை";
+    const fakeImageUrl = `https://dummyimage.com/600x400/000/fff.png&text=${encodeURIComponent(
+      wordData.word + " - " + definition
+    )}`;
+    setGeneratedImage(fakeImageUrl);
+  };
+
+  // 🔎 Tamil Wiktionary Fetch + Parser
   const searchWord = async () => {
     if (!searchTerm.trim()) return;
+
     setIsLoading(true);
-    setDefinition(null);
+    setGeneratedImage(null);
 
     try {
-      // Tamil Wiktionary API call
       const response = await fetch(
         `https://ta.wiktionary.org/w/api.php?action=query&titles=${encodeURIComponent(
           searchTerm
@@ -27,88 +51,133 @@ const TamilDictionaryApp = () => {
       if (!response.ok) throw new Error("Word not found");
 
       const data = await response.json();
-      const pages = data.query?.pages || {};
-      const firstPage = Object.values(pages)[0] as any;
+      const pages = data.query.pages;
+      const page = Object.values(pages)[0] as any;
 
-      if (firstPage?.extract) {
-        // Extract raw HTML text from Wiktionary
-        setDefinition(firstPage.extract);
-      } else {
-        throw new Error("No definition found");
-      }
+      if (!page.extract) throw new Error("No definition available");
+
+      // Parse HTML
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(page.extract, "text/html");
+
+      // Extract structured meanings
+      const meanings: WordData["meanings"] = [];
+      let currentPart = "விளக்கம்"; // fallback
+
+      doc.querySelectorAll("h3, h4, li").forEach((el) => {
+        if (el.tagName === "H3" || el.tagName === "H4") {
+          currentPart = el.textContent?.trim() || currentPart;
+        }
+        if (el.tagName === "LI") {
+          const text = el.textContent?.trim();
+          if (text) {
+            const match = text.match(/^(.*?)(“.*”|‘.*’)?$/);
+            const definition = match?.[1]?.trim() || text;
+            const example = match?.[2]?.replace(/[“”‘’]/g, "").trim();
+
+            let part = meanings.find((m) => m.partOfSpeech === currentPart);
+            if (!part) {
+              part = { partOfSpeech: currentPart, definitions: [] };
+              meanings.push(part);
+            }
+            part.definitions.push({ definition, example });
+          }
+        }
+      });
+
+      const tamilWordData: WordData = {
+        word: searchTerm,
+        phonetics: [], // Tamil Wiktionary rarely gives phonetics
+        meanings,
+      };
+
+      setWordData(tamilWordData);
+
+      // 🔥 Generate word image
+      generateWordImageAuto(tamilWordData);
     } catch (error) {
       toast({
         title: "சொல் கிடைக்கவில்லை",
         description: "வேறு சொல் முயற்சி செய்யவும்.",
         variant: "destructive",
       });
+      setWordData(null);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") searchWord();
-  };
-
   return (
-    <div className="min-h-screen p-4 md:p-8 bg-gradient-to-br from-pink-50 to-yellow-50">
-      <div className="max-w-3xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="text-center space-y-4">
-          <div className="flex items-center justify-center gap-3">
-            <BookOpen className="w-10 h-10 text-pink-600" />
-            <h1 className="text-4xl font-extrabold tracking-tight text-pink-700">
-              தமிழ் அகராதி
-            </h1>
-          </div>
-          <p className="text-gray-600 text-lg">
-            தமிழ் சொற்களின் அர்த்தத்தை அறிந்து கொள்ளுங்கள்
-          </p>
-        </div>
+    <div className="flex flex-col items-center justify-start min-h-screen bg-white text-gray-900 p-4">
+      {/* App Title */}
+      <h1 className="text-3xl font-bold mb-6 text-gray-800 tracking-tight">
+        📖 தமிழ் அகராதி
+      </h1>
 
-        {/* Search Box */}
-        <Card className="p-6 shadow-md">
-          <div className="flex gap-4">
-            <Input
-              type="text"
-              placeholder="சொல் எழுதவும்..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyPress={handleKeyPress}
-              className="text-lg h-12"
-              disabled={isLoading}
-            />
-            <Button
-              onClick={searchWord}
-              disabled={isLoading || !searchTerm.trim()}
-              className="px-6 bg-pink-600 hover:bg-pink-700"
-            >
-              {isLoading ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
-              ) : (
-                <Search className="w-5 h-5" />
-              )}
-            </Button>
-          </div>
-        </Card>
-
-        {/* Result */}
-        {definition && (
-          <Card className="p-6 shadow-md prose max-w-none">
-            <div dangerouslySetInnerHTML={{ __html: definition }} />
-          </Card>
-        )}
-
-        {/* Empty State */}
-        {!definition && !isLoading && (
-          <Card className="p-12 text-center text-gray-500">
-            <p>தமிழ் சொற்களின் அர்த்தம் காண தேடுங்கள்.</p>
-          </Card>
-        )}
+      {/* Search Bar */}
+      <div className="flex w-full max-w-md items-center space-x-2 mb-6">
+        <Input
+          type="text"
+          placeholder="தமிழ் சொல் தேடுங்கள்..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="flex-1 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+        />
+        <Button
+          onClick={searchWord}
+          disabled={isLoading}
+          className="bg-indigo-600 hover:bg-indigo-700 text-white"
+        >
+          {isLoading ? (
+            <Loader2 className="h-5 w-5 animate-spin" />
+          ) : (
+            <Search className="h-5 w-5" />
+          )}
+        </Button>
       </div>
+
+      {/* Results */}
+      {wordData && (
+        <Card className="w-full max-w-md shadow-md">
+          <CardContent className="p-4">
+            <h2 className="text-xl font-semibold mb-2">{wordData.word}</h2>
+
+            {wordData.meanings.map((meaning, i) => (
+              <div key={i} className="mb-4">
+                <p className="font-medium text-indigo-700">
+                  {meaning.partOfSpeech}
+                </p>
+                <ul className="list-disc pl-6 space-y-1">
+                  {meaning.definitions.map((def, j) => (
+                    <li key={j}>
+                      {def.definition}
+                      {def.example && (
+                        <p className="text-sm text-gray-600 italic">
+                          உதாரணம்: {def.example}
+                        </p>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Generated Image */}
+      {generatedImage && (
+        <div className="mt-6 w-full max-w-md text-center">
+          <h3 className="text-lg font-medium mb-2 flex items-center justify-center gap-2">
+            <ImageIcon className="h-5 w-5" /> உருவாக்கப்பட்ட பட அட்டை
+          </h3>
+          <img
+            src={generatedImage}
+            alt="Generated word card"
+            className="rounded-lg shadow-md"
+          />
+        </div>
+      )}
     </div>
   );
-};
-
-export default TamilDictionaryApp;
+}
