@@ -42,14 +42,7 @@
     --radius: 1rem;
 
     /* Gradients */
-     --gradient-primary: linear-gradient(
-    135deg,
-    hsl(202 93% 25%),
-    hsl(191 100% 40%),
-    hsl(56 84% 61%),
-    hsl(329 67% 31%),
-    hsl(202 93% 25%)
-  );
+     --gradient-primary: linear-gradient(to right, hsl(231, 100%, 57%), hsl(227, 96%, 61%));
 
     --gradient-card: linear-gradient(135deg, hsl(0 0% 100% / 0.15), hsl(0 0% 100% / 0.05));
     --gradient-text: linear-gradient(135deg, hsl(265 89% 65%), hsl(320 85% 70%));
