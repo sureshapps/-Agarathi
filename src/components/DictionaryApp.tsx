@@ -120,7 +120,7 @@ export default function TamilDictionaryApp() {
    <div class="text-4xl md:text-5xl font-extrabold tracking-tight gradient-text drop-shadow-lg py-5 px-10 bg-white border border-gray-500 rounded-xl transform hover:translate-y-1 transition duration-150">தமிழ் அகராதி</div>
 
 
-          
+          </div>  
           <p className="text-muted-foreground text-lg">
             சொற்களின் விளக்கங்களை அறிந்துக்கொள்ளுங்கள்.
           </p>
