@@ -112,7 +112,24 @@ export default function TamilDictionaryApp() {
         {/* Header */}
         <div className="text-center space-y-4 animate-fade-in">
           <div className="flex items-center justify-center gap-3">
-            <BookOpen className="w-10 h-10 text-primary drop-shadow-md" />
+          
+
+  <div class="relative">
+
+    <div class="absolute inset-x-0 -bottom-1 h-5 bg-white border border-gray-500 rounded-xl"></div>
+  <BookOpen className="w-10 h-10 text-primary drop-shadow-md" />
+              
+    <div class="relative rubik leading-none tracking-wider text-4xl font-thin py-5 px-16 bg-white border border-gray-500 rounded-xl transform hover:translate-y-1 transition duration-150">தமிழ் அகராதி</div>
+
+  </div>
+
+
+
+
+
+
+            
+            
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight gradient-text drop-shadow-lg">
               தமிழ் அகராதி
             </h1>
