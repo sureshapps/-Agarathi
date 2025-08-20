@@ -114,13 +114,11 @@ export default function TamilDictionaryApp() {
           <div className="flex items-center justify-center gap-3">
           
 
-  <div class="relative">
-
-    <div class="absolute inset-x-0 -bottom-1 h-5 bg-white border border-gray-500 rounded-xl"></div>
-
-    <div class="relative leading-none tracking-wider text-4xl font-extrabold text-red-600 py-4 px-16 bg-white border border-gray-500 rounded-xl transform hover:translate-y-1 transition duration-200">தமிழ் அகராதி</div>
-
-  </div>
+  <img 
+  src="https://iagarathi.netlify.app/-20-08-2025.png" 
+  alt="தமிழ் அகராதி" 
+  className="h-12 md:h-16 drop-shadow-lg"
+/>
           </div>  
           <p className="text-muted-foreground text-lg">
             சொற்களின் விளக்கங்களை அறிந்துக்கொள்ளுங்கள்.
