@@ -4,10 +4,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Loader2, Search, Image as ImageIcon } from "lucide-react";
+import { Loader2, Search, BookOpen } from "lucide-react"; // ✅ Added BookOpen
 import { toast } from "@/components/ui/use-toast";
 
-// WordData interface (same structure as English version)
+// WordData interface
 interface WordData {
   word: string;
   phonetics: string[];
@@ -25,7 +25,6 @@ export default function TamilDictionaryApp() {
 
   // 🔥 Auto Image Generator (placeholder)
   const generateWordImageAuto = (wordData: WordData) => {
-    // In real app, connect to your backend or OpenAI/DALL-E
     const definition =
       wordData.meanings[0]?.definitions[0]?.definition || "விளக்கம் இல்லை";
     const fakeImageUrl = `https://dummyimage.com/600x400/000/fff.png&text=${encodeURIComponent(
@@ -62,7 +61,7 @@ export default function TamilDictionaryApp() {
 
       // Extract structured meanings
       const meanings: WordData["meanings"] = [];
-      let currentPart = "விளக்கம்"; // fallback
+      let currentPart = "விளக்கம்";
 
       doc.querySelectorAll("h3, h4, li").forEach((el) => {
         if (el.tagName === "H3" || el.tagName === "H4") {
@@ -87,7 +86,7 @@ export default function TamilDictionaryApp() {
 
       const tamilWordData: WordData = {
         word: searchTerm,
-        phonetics: [], // Tamil Wiktionary rarely gives phonetics
+        phonetics: [],
         meanings,
       };
 
@@ -108,7 +107,6 @@ export default function TamilDictionaryApp() {
   };
 
   return (
-    return (
     <div className="min-h-screen p-4 md:p-8">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header */}
@@ -120,63 +118,65 @@ export default function TamilDictionaryApp() {
             </h1>
           </div>
           <p className="text-muted-foreground text-lg">
-          சொற்களின் விளக்கங்களை அறிந்துக்கொள்ளுங்கள்.
+            சொற்களின் விளக்கங்களை அறிந்துக்கொள்ளுங்கள்.
           </p>
         </div>
 
-      {/* Search Bar */}
-      <div className="flex w-full max-w-md items-center space-x-2 mb-6">
-        <Input
-          type="text"
-          placeholder="தமிழ்ச் சொற்களைத் தேடுங்கள்..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="flex-1 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
-        />
-        <Button
-          onClick={searchWord}
-          disabled={isLoading}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white"
-        >
-          {isLoading ? (
-            <Loader2 className="h-5 w-5 animate-spin" />
-          ) : (
-            <Search className="h-5 w-5" />
-          )}
-        </Button>
-      </div>
+        {/* Search Bar */}
+        <div className="flex w-full max-w-md items-center space-x-2 mb-6">
+          <Input
+            type="text"
+            placeholder="தமிழ்ச் சொற்களைத் தேடுங்கள்..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="flex-1 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+          />
+          <Button
+            onClick={searchWord}
+            disabled={isLoading}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white"
+          >
+            {isLoading ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <Search className="h-5 w-5" />
+            )}
+          </Button>
+        </div>
 
-      {/* Results */}
-      {wordData && (
-        <Card className="w-full max-w-md shadow-md">
-          <CardContent className="p-4">
-            
-            <h2 className="text-2xl font-bold mb-3 text-red-400">{wordData.word}</h2>
+        {/* Results */}
+        {wordData && (
+          <Card className="w-full max-w-md shadow-md">
+            <CardContent className="p-4">
+              <h2 className="text-2xl font-bold mb-3 text-red-400">
+                {wordData.word}
+              </h2>
             </CardContent>
-             <CardContent className="p-4">
-            {wordData.meanings.map((meaning, i) => (
-              <div key={i} className="mb-4">
-                <p className="font-xl text-indigo-700">
-                  {meaning.partOfSpeech}
-                </p> 
-                <ul className="list-disc pl-6 space-y-1">
-                  {meaning.definitions.map((def, j) => (
-                    <li key={j}>
-                      {def.definition}
-                      {def.example && (
-                        <p className="text-sm text-gray-600 italic">
-                          உதாரணம்: {def.example}
-                        </p>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-      )}
-            {/* Empty State */}
+            <CardContent className="p-4">
+              {wordData.meanings.map((meaning, i) => (
+                <div key={i} className="mb-4">
+                  <p className="font-xl text-indigo-700">
+                    {meaning.partOfSpeech}
+                  </p>
+                  <ul className="list-disc pl-6 space-y-1">
+                    {meaning.definitions.map((def, j) => (
+                      <li key={j}>
+                        {def.definition}
+                        {def.example && (
+                          <p className="text-sm text-gray-600 italic">
+                            உதாரணம்: {def.example}
+                          </p>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Empty State */}
         {!wordData && !isLoading && (
           <Card className="glass-card p-12 text-center animate-fade-in">
             <BookOpen className="w-16 h-16 text-muted-foreground mx-auto mb-4 opacity-50" />
@@ -190,6 +190,7 @@ export default function TamilDictionaryApp() {
           </Card>
         )}
       </div>
+
       {/* Footer */}
       <footer className="mt-16 py-8 border-t border-white/10">
         <div className="max-w-6xl mx-auto px-4 text-center">
@@ -204,7 +205,5 @@ export default function TamilDictionaryApp() {
         </div>
       </footer>
     </div>
-     </div>
-     </div>
   );
 }
