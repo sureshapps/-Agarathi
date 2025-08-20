@@ -120,8 +120,11 @@ export default function TamilDictionaryApp() {
   className="h-20 md:h-25"
 />
           </div>  
-          <p className="text-muted-foreground text-lg">
-            சொற்களின் விளக்கங்களை அறிந்துக்கொள்ளுங்கள்.
+<p><img 
+  src="https://raw.githubusercontent.com/sureshapps/-Agarathi/refs/heads/main/public/description.png" 
+  alt="description" 
+  className="h-12 md:h-16"
+/>
           </p>
         </div>
 
