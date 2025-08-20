@@ -140,13 +140,15 @@ export default function TamilDictionaryApp() {
       {wordData && (
         <Card className="w-full max-w-md shadow-md">
           <CardContent className="p-4">
-            <h2 className="text-xl font-semibold mb-2">{wordData.word}</h2>
-
+            
+            <h2 className="text-2xl font-bold mb-3 text-red-400">{wordData.word}</h2>
+            </CardContent>
+             <CardContent className="p-4">
             {wordData.meanings.map((meaning, i) => (
               <div key={i} className="mb-4">
-                <p className="font-medium text-indigo-700">
+                <p className="font-xl text-indigo-700">
                   {meaning.partOfSpeech}
-                </p>
+                </p> </br>
                 <ul className="list-disc pl-6 space-y-1">
                   {meaning.definitions.map((def, j) => (
                     <li key={j}>
