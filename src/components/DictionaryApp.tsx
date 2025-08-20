@@ -204,5 +204,7 @@ export default function TamilDictionaryApp() {
         </div>
       </footer>
     </div>
+     </div>
+     </div>
   );
 }
