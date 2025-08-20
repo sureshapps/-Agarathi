@@ -164,20 +164,19 @@ export default function TamilDictionaryApp() {
           </CardContent>
         </Card>
       )}
-
-      {/* Generated Image */}
-      {generatedImage && (
-        <div className="mt-6 w-full max-w-md text-center">
-          <h3 className="text-lg font-medium mb-2 flex items-center justify-center gap-2">
-            <ImageIcon className="h-5 w-5" /> உருவாக்கப்பட்ட பட அட்டை
-          </h3>
-          <img
-            src={generatedImage}
-            alt="Generated word card"
-            className="rounded-lg shadow-md"
-          />
+      {/* Footer */}
+      <footer className="mt-16 py-8 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <div className="glass-card p-6 rounded-lg">
+            <p className="text-muted-foreground text-sm">
+              © 2024 WordNexus. Made with ❤️ using Dictionary API and Runware AI.
+            </p>
+            <p className="text-muted-foreground text-xs mt-2 opacity-75">
+              Discover the beauty of language through words and visuals.
+            </p>
+          </div>
         </div>
-      )}
+      </footer>
     </div>
   );
 }
