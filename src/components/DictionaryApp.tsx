@@ -118,14 +118,14 @@ export default function TamilDictionaryApp() {
   src="https://iagarathi.netlify.app/-20-08-2025.png" 
   alt="தமிழ் அகராதி" 
   className="h-20 md:h-25"
-/>
-            <p>
+/>     </div>   
+            <center>
            <img 
   src="https://raw.githubusercontent.com/sureshapps/-Agarathi/refs/heads/main/public/description.png" 
   alt="description" 
   className="h-12 md:h-16"
-/></p>
-        </div>   
+/></center>
+   
         </div>
 
         {/* Search Bar */}
