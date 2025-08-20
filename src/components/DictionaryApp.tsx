@@ -125,14 +125,6 @@ export default function TamilDictionaryApp() {
 
 
 
-
-
-
-            
-            
-            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight gradient-text drop-shadow-lg">
-              தமிழ் அகராதி
-            </h1>
           </div>
           <p className="text-muted-foreground text-lg">
             சொற்களின் விளக்கங்களை அறிந்துக்கொள்ளுங்கள்.
