@@ -176,6 +176,20 @@ export default function TamilDictionaryApp() {
           </CardContent>
         </Card>
       )}
+            {/* Empty State */}
+        {!wordData && !isLoading && (
+          <Card className="glass-card p-12 text-center animate-fade-in">
+            <BookOpen className="w-16 h-16 text-muted-foreground mx-auto mb-4 opacity-50" />
+            <h3 className="text-xl font-semibold text-muted-foreground mb-2">
+              Ready to explore?
+            </h3>
+            <p className="text-muted-foreground">
+              Enter a word above to discover its meaning, pronunciation, and
+              visual representation.
+            </p>
+          </Card>
+        )}
+      </div>
       {/* Footer */}
       <footer className="mt-16 py-8 border-t border-white/10">
         <div className="max-w-6xl mx-auto px-4 text-center">
