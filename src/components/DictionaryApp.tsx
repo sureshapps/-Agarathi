@@ -118,7 +118,7 @@ export default function TamilDictionaryApp() {
 
     <div class="absolute inset-x-0 -bottom-1 h-5 bg-white border border-gray-500 rounded-xl"></div>
 
-    <div class="relative leading-none tracking-tight gradient-text text-4xl font-extrabold py-5 px-16 bg-white border border-gray-500 rounded-xl transform hover:translate-y-1 transition duration-150">spacebar</div>
+    <div class="relative leading-none tracking-tight text-4xl font-extrabold py-5 px-16 bg-white border border-gray-500 rounded-xl transform hover:translate-y-1 transition duration-150">தமிழ் அகராதி</div>
 
   </div>
           </div>  
